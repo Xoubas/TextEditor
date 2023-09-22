@@ -4,6 +4,7 @@ existe o cree un nuevo en el que puedas escribir si no existe. Ejemplo: java Edi
 proba.txt*/
 public class Classmain {
 	public static void main(String[] args) {
-
+		Document soc = new Document("sdasdas");
+		soc.writeFromKeyboard();
 	}
 }
