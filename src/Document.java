@@ -40,15 +40,18 @@ public class Document {
 		return s;
 	}
 
-	public String writeFromKeyboard() {
+	private String writeFromKeyboard() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Write: ");
 		String text = sc.nextLine();
 		return text;
 	}
 
-	private void writeFromString() throws IOException {
-		BufferedWriter bw = new BufferedWriter(new FileWriter(archive));
+	// FileWritter(<file>, true) activates appending
+	public void writeFromString() throws IOException {
+		BufferedWriter bw = new BufferedWriter(new FileWriter(archive, true));
 		bw.write(writeFromKeyboard());
+		if (bw != null)
+			bw.close();
 	}
 }
