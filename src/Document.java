@@ -1,10 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.Scanner;
 
@@ -19,19 +13,26 @@ public class Document {
 		return (archive != null && archive.exists());
 	}
 
+	/*
+	 * The try/catch FileNotFoundException does the same as the exists method by
+	 * checking if the file exists on the system
+	 */
 	private String readFile() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(archive));
 		String line;
 		StringBuilder sb = new StringBuilder();
-		try {
-			while ((line = reader.readLine()) != null) {
-				sb.append(line).append(System.lineSeparator());
+		if (exists()) {
+			try {
+				while ((line = reader.readLine()) != null) {
+					sb.append(line).append(System.lineSeparator());
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				reader.close();
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			reader.close();
 		}
+
 		return sb.toString();
 	}
 
@@ -44,6 +45,7 @@ public class Document {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Write: ");
 		String text = sc.nextLine();
+		sc.close();
 		return text;
 	}
 
@@ -53,5 +55,14 @@ public class Document {
 		bw.write(writeFromKeyboard());
 		if (bw != null)
 			bw.close();
+	}
+
+	public void writeFromStringPrintWritter() throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(archive, true));
+		pw.write(writeFromKeyboard());
+	}
+
+	public void writeFromInputStream() {
+		InputStream is = new InputStream();
 	}
 }

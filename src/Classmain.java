@@ -8,11 +8,8 @@ import java.io.IOException;
 public class Classmain {
 	public static void main(String[] args) {
 		Document soc = new Document("/home/stx/Desktop/cosa.txt");
-		try {
-			soc.writeFromString();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if(soc.exists()==false)
+			System.exit(1);
+		
 	}
 }
