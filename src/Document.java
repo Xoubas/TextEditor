@@ -3,7 +3,7 @@ import java.nio.file.Files;
 import java.util.Scanner;
 
 public class Document {
-	File archive = null;
+	private File archive = null;
 
 	public Document(String name) {
 		archive = new File(name);
@@ -62,7 +62,34 @@ public class Document {
 		pw.write(writeFromKeyboard());
 	}
 
-	public void writeFromInputStream() {
-		InputStream is = new InputStream();
+	public void writeFromInputStream() throws IOException {
+
+		FileInputStream fis = null;
+		FileOutputStream fos = null;
+
+		try {
+			fis = new FileInputStream(writeFromKeyboard());
+			fos = new FileOutputStream(archive);
+			int c;
+			while ((c = fis.read()) != -1)
+				fos.write(c);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null)
+				fis.close();
+
+			if (fos != null)
+				fos.close();
+		}
+	}
+
+	public String getFile() {
+		return archive.getName();
+	}
+
+	@Override
+	public String toString() {
+		return "Path: " + archive;
 	}
 }

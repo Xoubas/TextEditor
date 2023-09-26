@@ -7,9 +7,8 @@ import java.io.IOException;
 
 public class Classmain {
 	public static void main(String[] args) {
-		Document soc = new Document("/home/stx/Desktop/cosa.txt");
-		if(soc.exists()==false)
-			System.exit(1);
-		
+		Document soc = new Document("/home/sanclemente.local/a21javierbq/Escritorio/cosa.txt");
+		System.out.println(soc.toString());
+		System.out.println(soc.getFile());
 	}
 }
